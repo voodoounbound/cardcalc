@@ -157,17 +157,18 @@ a { color: var(--gold); }
 }
 
 .brand-mark {
-    width: 38px;
-    height: 38px;
-    border-radius: 9px;
+    width: 42px;
+    height: 42px;
     flex: none;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 45%, #a97c14 100%);
     display: grid;
     place-items: center;
-    box-shadow: 0 6px 18px -6px rgba(212, 175, 55, 0.55);
 }
 
-.brand-mark svg { width: 20px; height: 20px; }
+.brand-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
 .brand-text-eyebrow {
     font-size: 0.68rem;
@@ -296,6 +297,32 @@ a { color: var(--gold); }
 
 .calc-grid.calc-grid--single {
     grid-template-columns: minmax(0, 1fr);
+}
+
+.calc-mobile-nav {
+    display: none;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.calc-mobile-nav-btn {
+    flex: 1;
+    appearance: none;
+    border: 1px solid var(--hairline-soft);
+    background: var(--panel-raised);
+    color: var(--ink-dim);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 9px 10px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.calc-mobile-nav-btn.is-active {
+    background: rgba(212, 175, 55, 0.14);
+    color: var(--gold-bright);
+    border-color: rgba(212, 175, 55, 0.45);
 }
 
 .summary-header-actions {
@@ -475,18 +502,22 @@ input:disabled {
 
 .clear-field {
     position: absolute;
-    top: 32px;
+    top: 50%;
     right: 8px;
-    width: 20px;
-    height: 20px;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
     margin: 0;
     padding: 0;
     border: none;
     border-radius: 50%;
     background: transparent;
     color: var(--ink-faint);
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 15px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: .15s;
 }
@@ -760,9 +791,7 @@ input:disabled {
 }
 
 .summary-scroll {
-    max-height: calc(100vh - 260px);
     min-height: 160px;
-    overflow-y: auto;
     padding: 6px 16px 14px;
 }
 
@@ -856,7 +885,7 @@ input:disabled {
 
 .scenario-action-row {
     display: grid;
-    grid-template-columns: 22px 22px 1fr;
+    grid-template-columns: 22px 22px 22px 1fr;
     gap: 6px;
     align-items: center;
     margin-bottom: 6px;
@@ -881,7 +910,7 @@ input:disabled {
     border-color: rgba(192, 71, 90, 0.4);
 }
 
-.save-scenario-button {
+.scenario-icon-button {
     width: 22px;
     height: 22px;
     padding: 0;
@@ -889,12 +918,18 @@ input:disabled {
     border-radius: 50%;
     background: transparent;
     color: var(--ink-dim);
-    font-size: 0.75rem;
-    line-height: 20px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.save-scenario-button:hover {
+.scenario-icon-button svg {
+    width: 13px;
+    height: 13px;
+}
+
+.scenario-icon-button:hover {
     background: rgba(212, 175, 55, 0.14);
     color: var(--gold-bright);
     border-color: rgba(212, 175, 55, 0.4);
@@ -1363,6 +1398,104 @@ input:disabled {
     font-weight: 600;
 }
 
+/* ---------- Profile switcher ---------- */
+.profile-switcher-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    max-width: 180px;
+}
+
+.profile-switcher-btn:hover { border-color: var(--gold-dim); }
+
+.profile-switcher-icon {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    color: var(--gold);
+}
+
+.profile-switcher-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-switcher-chevron {
+    width: 12px;
+    height: 12px;
+    flex: none;
+    color: var(--ink-dim);
+    margin-left: auto;
+}
+
+#profilePopover {
+    min-width: 240px;
+    right: 0;
+    left: auto;
+}
+
+.profile-list-item {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.profile-list-item .profile-select-btn {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-list-item.is-active .profile-select-btn {
+    background: rgba(212, 175, 55, 0.16);
+    color: var(--gold-bright);
+    font-weight: 600;
+}
+
+.profile-icon-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--ink-dim);
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    flex: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-icon-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--ink);
+}
+
+.profile-icon-btn.profile-delete-btn:hover {
+    background: rgba(192, 71, 90, 0.16);
+    color: var(--danger);
+}
+
+.profile-popover-footer {
+    border-top: 1px solid var(--hairline-soft);
+    padding-top: 6px;
+    margin-top: 2px;
+}
+
 #filterPopover .popover-option.is-active::after {
     content: "✓";
     margin-left: auto;
@@ -1756,16 +1889,6 @@ input:disabled {
 }
 .multi-edit-remove:hover { color:var(--danger); background:rgba(192,71,90,.14); }
 
-.clear-field {
-    top: 29px;
-    right: 6px;
-    width: 28px;
-    height: 28px;
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 500;
-}
-
 input:focus::selection, textarea:focus::selection { background: rgba(212,175,55,.45); color:#fff; }
 
 @media (max-width: 1100px) {
@@ -1804,6 +1927,32 @@ input:focus::selection, textarea:focus::selection { background: rgba(212,175,55,
     .inv-stat { padding: 10px 8px; }
     .inv-stat-value { font-size: 1.1rem; }
     .inv-stat-label { font-size: 0.58rem; margin-top: 4px; letter-spacing: 0.02em; }
+
+    /* Calculator + Summary become two full-width, swipeable snap panels
+       instead of a tall vertical stack, so results are never buried
+       below a long scroll of form fields. */
+    .calc-mobile-nav { display: flex; }
+
+    .calc-grid {
+        display: flex;
+        grid-template-columns: none;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 0;
+        gap: 14px;
+        margin: 0 -14px;
+        padding: 0 14px 6px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .calc-grid > .panel,
+    .calc-grid > aside.panel {
+        flex: 0 0 100%;
+        min-width: 0;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
 }
 
 
@@ -1910,7 +2059,7 @@ input:focus::selection, textarea:focus::selection { background: rgba(212,175,55,
     <header class="app-header">
         <div class="brand">
             <div class="brand-mark">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.2 9.2L21.5 9.2L15.6 13.7L17.8 21L12 16.5L6.2 21L8.4 13.7L2.5 9.2L9.8 9.2L12 2Z" fill="#14131a"/></svg>
+                <img src="assets/icon.png" alt="App icon">
             </div>
             <div>
                 <p class="brand-text-eyebrow">Harry Potter: Magic Awakened</p>
@@ -1946,10 +2095,34 @@ input:focus::selection, textarea:focus::selection { background: rgba(212,175,55,
                 </div>
             </div>
         </nav>
+
+        <div class="popover-wrap" id="profileSwitcherWrap">
+            <button type="button" class="profile-switcher-btn" id="profileSwitcherBtn" onclick="toggleProfilePopover(event)" aria-haspopup="true" aria-expanded="false" title="Switch profile">
+                <svg class="profile-switcher-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+                <span class="profile-switcher-name" id="activeProfileName">Default</span>
+                <svg class="profile-switcher-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="popover-menu" id="profilePopover" hidden>
+                <div class="popover-section-label">Profiles</div>
+                <div class="popover-options" id="profileList"></div>
+                <div class="profile-popover-footer">
+                    <button type="button" class="popover-option" onclick="createProfile()">+ New profile</button>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- ===================== CALCULATOR VIEW ===================== -->
     <section id="view-calculator" class="view">
+
+        <div class="calc-mobile-nav" id="calcMobileNav">
+            <button type="button" class="calc-mobile-nav-btn is-active" data-target="calculatorPanel" onclick="scrollCalcPanelIntoView('calculatorPanel', this)">
+                🧮 Calculator
+            </button>
+            <button type="button" class="calc-mobile-nav-btn" data-target="summaryPanel" onclick="scrollCalcPanelIntoView('summaryPanel', this)">
+                📋 Summary
+            </button>
+        </div>
 
         <div class="calc-grid" id="calcGrid">
 
@@ -2061,7 +2234,7 @@ input:focus::selection, textarea:focus::selection { background: rgba(212,175,55,
                 </div>
             </div>
 
-            <aside class="panel">
+            <aside class="panel" id="summaryPanel">
                 <div class="panel-header">
                     <div>
                         <h2 class="panel-title">Calculation Summary</h2>
@@ -2394,9 +2567,15 @@ input:focus::selection, textarea:focus::selection { background: rgba(212,175,55,
 
                     <div class="inv-toolbar-actions">
                         <button class="btn btn-ghost btn-sm" onclick="downloadInventoryTemplate()" title="Download a blank inventory CSV">Template</button>
-                        <button class="btn btn-ghost btn-sm" onclick="exportInventory()">Export</button>
-                        <button class="btn btn-ghost btn-sm" onclick="triggerImportInventory()">Import</button>
-                        <button class="btn btn-danger-ghost btn-sm" onclick="resetInventory()">Reset</button>
+                        <button type="button" class="btn btn-ghost btn-icon btn-icon-sm" onclick="exportInventory()" title="Export CSV" aria-label="Export CSV">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
+                        </button>
+                        <button type="button" class="btn btn-ghost btn-icon btn-icon-sm" onclick="triggerImportInventory()" title="Import CSV" aria-label="Import CSV">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 4h16"/></svg>
+                        </button>
+                        <button type="button" class="btn btn-danger-ghost btn-icon btn-icon-sm" onclick="resetInventory()" title="Reset inventory" aria-label="Reset inventory">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                        </button>
                     </div>
                     <input
                         type="file"
@@ -3150,8 +3329,43 @@ function autoFillRarity() {
     if (cardRarities[cardName]) {
         category.value = cardRarities[cardName];
         updateResourceLabels();
-        autoFillCurrentLevel();
+        applyCardTrackingState(cardName);
     }
+}
+
+/* When the selected card changes, pull its saved level, owned count, trade
+   tokens, wild cards, and crystals straight from the Inventory if it's
+   tracked there. If it isn't tracked, clear those fields instead of leaving
+   stale values from the previous card sitting in the form. */
+function applyCardTrackingState(cardName) {
+    const currentLevelField = document.getElementById("currentLevel");
+    const ownedCardsField = document.getElementById("ownedCards");
+    const desiredLevelField = document.getElementById("desiredLevel");
+    const tradeTokensField = document.getElementById("tradeTokens");
+    const wildCardsField = document.getElementById("wildCards");
+    const normalCrystalsField = document.getElementById("normalCrystals");
+    const refinedCrystalsField = document.getElementById("refinedCrystals");
+
+    if (isCardTracked(cardName)) {
+        const entry = getInventoryEntry(cardName);
+        currentLevelField.value = entry.level;
+        ownedCardsField.value = entry.owned;
+        tradeTokensField.value = entry.tradeTokens || "";
+        wildCardsField.value = entry.wildCards || "";
+        normalCrystalsField.value = entry.normalCrystals || "";
+        refinedCrystalsField.value = entry.refinedCrystals || "";
+        autoFillDesiredLevel();
+    } else {
+        currentLevelField.value = "";
+        ownedCardsField.value = "";
+        desiredLevelField.value = "";
+        tradeTokensField.value = "";
+        wildCardsField.value = "";
+        normalCrystalsField.value = "";
+        refinedCrystalsField.value = "";
+    }
+
+    updateLoadInventoryButtonState();
 }
 
 function filterCardsByRarity() {
@@ -3425,7 +3639,8 @@ function calculateCards() {
 
         <div class="result-actions">
             <button class="btn btn-ghost btn-sm btn-block" onclick="saveCurrentCardToInventory()">
-                💾 Save level &amp; owned to inventory
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Save level &amp; owned to inventory
             </button>
         </div>
     </div>
@@ -3584,11 +3799,31 @@ if (item.refinedCrystalsUsed > 0) {
 
     <button
         type="button"
-        class="save-scenario-button"
+        class="scenario-icon-button"
         onclick="saveScenarioToInventory('${item.scenarioId}')"
         title="Save Lv ${item.current} / ${item.ownedCards} owned to inventory"
+        aria-label="Save Lv ${item.current} / ${item.ownedCards} owned to inventory"
     >
-        💾
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+    </button>
+
+    <button
+        type="button"
+        class="scenario-icon-button"
+        onclick="sendScenarioToCalculator('${item.scenarioId}')"
+        title="Reload this scenario into the calculator to re-evaluate"
+        aria-label="Reload this scenario into the calculator to re-evaluate"
+    >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2.5"></rect>
+            <rect x="6.5" y="4.5" width="11" height="4.5" rx="1"></rect>
+            <circle cx="8" cy="13" r="1.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="12" cy="13" r="1.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="16" cy="13" r="1.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="8" cy="16.5" r="1.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="12" cy="16.5" r="1.1" fill="currentColor" stroke="none"></circle>
+            <rect x="14" y="15.3" width="4" height="4.2" rx="1" fill="currentColor" stroke="none"></rect>
+        </svg>
     </button>
 
     <button 
@@ -3698,7 +3933,53 @@ function getRecommendedScenarioHtml(item) {
 
     return `
         <div class="recommended-summary-card">
-            <div class="recommended-label">Recommended</div>
+            <div class="scenario-action-row">
+                <button
+                    type="button"
+                    class="delete-scenario-button"
+                    onclick="deleteScenario('${item.scenarioId}')"
+                    title="Delete calculation"
+                >
+                    ×
+                </button>
+
+                <button
+                    type="button"
+                    class="scenario-icon-button"
+                    onclick="saveScenarioToInventory('${item.scenarioId}')"
+                    title="Save Lv ${item.current} / ${item.ownedCards} owned to inventory"
+                    aria-label="Save Lv ${item.current} / ${item.ownedCards} owned to inventory"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+
+                <button
+                    type="button"
+                    class="scenario-icon-button"
+                    onclick="sendScenarioToCalculator('${item.scenarioId}')"
+                    title="Reload this scenario into the calculator to re-evaluate"
+                    aria-label="Reload this scenario into the calculator to re-evaluate"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+                        <rect x="4" y="2" width="16" height="20" rx="2.5"></rect>
+                        <rect x="6.5" y="4.5" width="11" height="4.5" rx="1"></rect>
+                        <circle cx="8" cy="13" r="1.1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="12" cy="13" r="1.1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="16" cy="13" r="1.1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="8" cy="16.5" r="1.1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="12" cy="16.5" r="1.1" fill="currentColor" stroke="none"></circle>
+                        <rect x="14" y="15.3" width="4" height="4.2" rx="1" fill="currentColor" stroke="none"></rect>
+                    </svg>
+                </button>
+
+                <button
+                    type="button"
+                    class="pin-scenario-button ${item.isPinned ? "pinned" : ""}"
+                    onclick="toggleScenarioPin('${item.scenarioId}')"
+                >
+                    ${item.isPinned ? "✨ Pinned" : "✨ Pin"}
+                </button>
+            </div>
 
             <div class="recommended-title">
                 Best for Lvl ${item.desired}
@@ -3717,14 +3998,7 @@ function getRecommendedScenarioHtml(item) {
                 ${getRecommendedResourcesText(item)}
             </div>
 
-            <button
-                type="button"
-                class="btn btn-ghost btn-sm btn-block"
-                style="margin-top:8px; font-size:0.68rem; padding:6px 8px;"
-                onclick="saveScenarioToInventory('${item.scenarioId}')"
-            >
-                💾 Save to inventory
-            </button>
+            <div class="recommended-label" style="margin-top:8px;">Recommended</div>
         </div>
     `;
 }
@@ -4175,7 +4449,30 @@ function switchView(viewName) {
 
     if (!isCalculator) {
         renderInventory();
+        return;
     }
+
+    // Whenever the Calculator tab is opened, make sure the calculator
+    // itself is what's actually visible — not left scrolled over on the
+    // mobile swipe layout, and not sitting collapsed from a previous visit.
+    if (uiPrefs.calculatorHidden) {
+        uiPrefs.calculatorHidden = false;
+        saveUIPrefs();
+        applyCalculatorPanelState();
+    }
+
+    requestAnimationFrame(() => {
+        const grid = document.getElementById("calcGrid");
+        const calculatorPanel = document.getElementById("calculatorPanel");
+
+        if (grid && calculatorPanel) {
+            grid.scrollTo({ left: 0, behavior: "auto" });
+        }
+
+        document.querySelectorAll(".calc-mobile-nav-btn").forEach(btn => {
+            btn.classList.toggle("is-active", btn.dataset.target === "calculatorPanel");
+        });
+    });
 }
 
 /* ============================================================
@@ -4198,19 +4495,198 @@ function showToast(message) {
 }
 
 /* ============================================================
+   PROFILES (local, browser-only — no login/account, just lets
+   one browser keep several separate inventories/resource pools)
+   ============================================================ */
+const PROFILES_STORAGE_KEY = "voodooUnboundProfilesV1";
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, ch => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[ch]));
+}
+
+function generateProfileId() {
+    return "p" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+function loadProfilesState() {
+    try {
+        const raw = localStorage.getItem(PROFILES_STORAGE_KEY);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && Array.isArray(parsed.profiles) && parsed.profiles.length > 0 && parsed.activeId) {
+                return parsed;
+            }
+        }
+    } catch (error) {
+        console.error("Could not read profiles from storage", error);
+    }
+
+    // First run (or a browser that predates profiles): create a single
+    // "Default" profile that reads/writes the original, un-suffixed
+    // storage keys, so nobody's existing inventory or resources move.
+    const initialState = {
+        profiles: [{ id: "default", name: "Default" }],
+        activeId: "default"
+    };
+
+    try {
+        localStorage.setItem(PROFILES_STORAGE_KEY, JSON.stringify(initialState));
+    } catch (error) {
+        console.error("Could not save initial profile state", error);
+    }
+
+    return initialState;
+}
+
+let profilesState = loadProfilesState();
+
+function saveProfilesState() {
+    try {
+        localStorage.setItem(PROFILES_STORAGE_KEY, JSON.stringify(profilesState));
+    } catch (error) {
+        console.error("Could not save profiles to storage", error);
+    }
+}
+
+function getActiveProfile() {
+    return profilesState.profiles.find(p => p.id === profilesState.activeId) || profilesState.profiles[0];
+}
+
+function scopedStorageKey(baseKey, profileId) {
+    return profileId === "default" ? baseKey : `${baseKey}::${profileId}`;
+}
+
+function renderProfileSwitcher() {
+    const nameEl = document.getElementById("activeProfileName");
+    const activeProfile = getActiveProfile();
+    if (nameEl) nameEl.textContent = activeProfile.name;
+
+    const list = document.getElementById("profileList");
+    if (!list) return;
+
+    list.innerHTML = profilesState.profiles.map(profile => {
+        const isActive = profile.id === profilesState.activeId;
+        const canDelete = profilesState.profiles.length > 1;
+
+        return `
+            <div class="profile-list-item ${isActive ? "is-active" : ""}">
+                <button type="button" class="popover-option profile-select-btn" onclick="switchProfile('${escapeForAttribute(profile.id)}')" title="Switch to ${escapeHtml(profile.name)}">
+                    ${isActive ? "✓ " : ""}${escapeHtml(profile.name)}
+                </button>
+                <button type="button" class="profile-icon-btn" title="Rename" aria-label="Rename ${escapeHtml(profile.name)}" onclick="renameProfile('${escapeForAttribute(profile.id)}')">✎</button>
+                ${canDelete ? `<button type="button" class="profile-icon-btn profile-delete-btn" title="Delete" aria-label="Delete ${escapeHtml(profile.name)}" onclick="deleteProfile('${escapeForAttribute(profile.id)}')">×</button>` : ""}
+            </div>
+        `;
+    }).join("");
+}
+
+function toggleProfilePopover(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById("profilePopover");
+    const btn = document.getElementById("profileSwitcherBtn");
+    const willOpen = menu.hidden;
+
+    closeAllPopovers(null);
+    menu.hidden = !willOpen;
+    if (btn) btn.setAttribute("aria-expanded", String(willOpen));
+}
+
+function closeProfilePopover() {
+    const menu = document.getElementById("profilePopover");
+    const btn = document.getElementById("profileSwitcherBtn");
+    if (menu) menu.hidden = true;
+    if (btn) btn.setAttribute("aria-expanded", "false");
+}
+
+function switchProfile(profileId) {
+    if (profileId === profilesState.activeId) {
+        closeProfilePopover();
+        return;
+    }
+
+    profilesState.activeId = profileId;
+    saveProfilesState();
+    trackEvent("profile_switched");
+    closeProfilePopover();
+    location.reload();
+}
+
+function createProfile() {
+    const name = (prompt("Name this profile:") || "").trim();
+    if (!name) return;
+
+    const id = generateProfileId();
+    profilesState.profiles.push({ id, name: name.slice(0, 40) });
+    profilesState.activeId = id;
+    saveProfilesState();
+    trackEvent("profile_created");
+    closeProfilePopover();
+    location.reload();
+}
+
+function renameProfile(profileId) {
+    const profile = profilesState.profiles.find(p => p.id === profileId);
+    if (!profile) return;
+
+    const name = (prompt("Rename profile:", profile.name) || "").trim();
+    if (!name || name === profile.name) return;
+
+    profile.name = name.slice(0, 40);
+    saveProfilesState();
+    renderProfileSwitcher();
+}
+
+function deleteProfile(profileId) {
+    if (profilesState.profiles.length <= 1) return;
+
+    const profile = profilesState.profiles.find(p => p.id === profileId);
+    if (!profile) return;
+
+    const shouldDelete = confirm(`Delete the profile "${profile.name}"? Its inventory and resources will be permanently deleted. This cannot be undone.`);
+    if (!shouldDelete) return;
+
+    try {
+        localStorage.removeItem(scopedStorageKey(INVENTORY_STORAGE_KEY, profileId));
+        localStorage.removeItem(scopedStorageKey(RESOURCE_STORAGE_KEY, profileId));
+    } catch (error) {
+        console.error("Could not remove profile storage", error);
+    }
+
+    profilesState.profiles = profilesState.profiles.filter(p => p.id !== profileId);
+
+    if (profilesState.activeId === profileId) {
+        profilesState.activeId = profilesState.profiles[0].id;
+    }
+
+    saveProfilesState();
+    trackEvent("profile_deleted");
+
+    if (profilesState.activeId === profileId) {
+        closeProfilePopover();
+    }
+
+    location.reload();
+}
+
+/* ============================================================
    INVENTORY SYSTEM
    ============================================================ */
 const INVENTORY_STORAGE_KEY = "voodooUnboundInventoryV1";
-let cardInventory = loadInventoryFromStorage();
-
 const RESOURCE_STORAGE_KEY = "voodooUnboundResourcesV1";
-let resourcePools = loadResourcesFromStorage();
 const inventoryFilterState = {
     rarities: new Set(),
     cardTypes: new Set(),
     statuses: new Set()
 };
 
+let cardInventory = loadInventoryFromStorage();
+let resourcePools = loadResourcesFromStorage();
 let selectedCards = new Map(); // cardName -> targetLevel
 let multiEditCards = new Set(); // independently removable from multi-edit while remaining in plan
 
@@ -4229,7 +4705,7 @@ function loadResourcesFromStorage() {
     const defaults = getDefaultResources();
 
     try {
-        const raw = localStorage.getItem(RESOURCE_STORAGE_KEY);
+        const raw = localStorage.getItem(scopedStorageKey(RESOURCE_STORAGE_KEY, profilesState.activeId));
         if (!raw) return defaults;
 
         const parsed = JSON.parse(raw);
@@ -4249,7 +4725,7 @@ function loadResourcesFromStorage() {
 
 function saveResourcesToStorage() {
     try {
-        localStorage.setItem(RESOURCE_STORAGE_KEY, JSON.stringify(resourcePools));
+        localStorage.setItem(scopedStorageKey(RESOURCE_STORAGE_KEY, profilesState.activeId), JSON.stringify(resourcePools));
     } catch (error) {
         console.error("Could not save resources to storage", error);
     }
@@ -4492,7 +4968,7 @@ function handleResourceInputChange(event) {
 
 function loadInventoryFromStorage() {
     try {
-        const raw = localStorage.getItem(INVENTORY_STORAGE_KEY);
+        const raw = localStorage.getItem(scopedStorageKey(INVENTORY_STORAGE_KEY, profilesState.activeId));
         return raw ? JSON.parse(raw) : {};
     } catch (error) {
         console.error("Could not read inventory from storage", error);
@@ -4502,7 +4978,7 @@ function loadInventoryFromStorage() {
 
 function saveInventoryToStorage() {
     try {
-        localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(cardInventory));
+        localStorage.setItem(scopedStorageKey(INVENTORY_STORAGE_KEY, profilesState.activeId), JSON.stringify(cardInventory));
     } catch (error) {
         console.error("Could not save inventory to storage", error);
     }
@@ -4542,23 +5018,46 @@ function getTotalHourglassPotential() {
 }
 
 function getInventoryEntry(cardName) {
-    if (cardInventory[cardName]) {
-        return cardInventory[cardName];
+    const entry = cardInventory[cardName];
+
+    if (entry) {
+        return {
+            level: entry.level,
+            owned: entry.owned,
+            tradeTokens: Math.max(0, Number(entry.tradeTokens) || 0),
+            wildCards: Math.max(0, Number(entry.wildCards) || 0),
+            normalCrystals: Math.max(0, Number(entry.normalCrystals) || 0),
+            refinedCrystals: Math.max(0, Number(entry.refinedCrystals) || 0)
+        };
     }
 
     return {
         level: getDefaultLevelForCard(cardName),
-        owned: 0
+        owned: 0,
+        tradeTokens: 0,
+        wildCards: 0,
+        normalCrystals: 0,
+        refinedCrystals: 0
     };
 }
 
-function setInventoryEntry(cardName, level, owned) {
+function setInventoryEntry(cardName, level, owned, extra = {}) {
     const clampedLevel = Math.min(18, Math.max(1, Number(level) || 1));
     const clampedOwned = Math.max(0, Number(owned) || 0);
+    const existing = cardInventory[cardName] || {};
+
+    function resolveExtra(key) {
+        const value = extra[key] !== undefined ? extra[key] : existing[key];
+        return Math.max(0, Number(value) || 0);
+    }
 
     cardInventory[cardName] = {
         level: clampedLevel,
-        owned: clampedOwned
+        owned: clampedOwned,
+        tradeTokens: resolveExtra("tradeTokens"),
+        wildCards: resolveExtra("wildCards"),
+        normalCrystals: resolveExtra("normalCrystals"),
+        refinedCrystals: resolveExtra("refinedCrystals")
     };
 
     saveInventoryToStorage();
@@ -4609,11 +5108,21 @@ function getOwnedUpgradeReach(cardName, currentLevel, ownedCards) {
     };
 }
 
+/* Total copies still needed to go from a given level all the way to level 18. */
+function getCardsNeededToMax(cardName, fromLevel) {
+    const displayCategory = cardRarities[cardName];
+    const category = getCalculationCategory(displayCategory);
+    let total = 0;
+
+    for (let level = Math.max(1, Number(fromLevel) || 1) + 1; level <= 18; level++) {
+        total += (cards[category] && cards[category][level]) || 0;
+    }
+
+    return total;
+}
+
 function updateInventoryTabCount() {
-    const trackedCount = Object.keys(cardInventory).filter(name => {
-        const entry = cardInventory[name];
-        return entry.owned > 0 || entry.level !== getDefaultLevelForCard(name);
-    }).length;
+    const trackedCount = Object.keys(cardInventory).filter(name => isCardTracked(name)).length;
 
     document.getElementById("inventoryTabCount").textContent = trackedCount;
 }
@@ -4621,7 +5130,13 @@ function updateInventoryTabCount() {
 function isCardTracked(cardName) {
     const entry = cardInventory[cardName];
     if (!entry) return false;
-    return entry.owned > 0 || entry.level !== getDefaultLevelForCard(cardName);
+
+    return entry.owned > 0
+        || entry.level !== getDefaultLevelForCard(cardName)
+        || (Number(entry.tradeTokens) || 0) > 0
+        || (Number(entry.wildCards) || 0) > 0
+        || (Number(entry.normalCrystals) || 0) > 0
+        || (Number(entry.refinedCrystals) || 0) > 0;
 }
 
 /* ---------- Multi-card selection & upgrade planning ---------- */
@@ -5124,8 +5639,15 @@ function renderInventoryCard(row) {
 
     const progressLabel = nextInfo.isMax
         ? `${entry.owned.toLocaleString()} extra → ${hourglassValue.toLocaleString()} tokens`
-        : upgradeReach.gainsMultipleLevels
-            ? `${entry.owned.toLocaleString()} cards → Lv ${upgradeReach.reachableLevel}`
+        : upgradeReach.canUpgrade
+            ? (() => {
+                const neededToMax = getCardsNeededToMax(cardName, upgradeReach.reachableLevel);
+                const remainingToMax = Math.max(0, neededToMax - upgradeReach.cardsRemaining);
+                const extraNote = upgradeReach.cardsRemaining > 0
+                    ? `, +${upgradeReach.cardsRemaining.toLocaleString()} extra`
+                    : "";
+                return `${entry.owned.toLocaleString()} cards → Lv ${upgradeReach.reachableLevel}${extraNote}, ${remainingToMax.toLocaleString()} to Lv 18`;
+            })()
             : `${entry.owned.toLocaleString()} / ${nextInfo.needed.toLocaleString()} to Lv ${nextInfo.nextLevel}`;
 
     const badge = nextInfo.isMax
@@ -5136,7 +5658,7 @@ function renderInventoryCard(row) {
 
     const resourceNote = nextInfo.isMax
         ? `⏳ ${hourglassRate.toLocaleString()} tokens ea.`
-        : `<span class="gold-line">${goldIconHtml("summary")} ${(upgradeReach.gainsMultipleLevels ? upgradeReach.totalGoldCost : nextInfo.goldCost).toLocaleString()} gold</span>`;
+        : `<span class="gold-line">${goldIconHtml("summary")} ${(upgradeReach.canUpgrade ? upgradeReach.totalGoldCost : nextInfo.goldCost).toLocaleString()} gold</span>`;
 
     return `
         <div class="inv-card ${rarityClass} ${isReady ? "is-ready" : ""} ${isSelected ? "is-selected" : ""}" data-card-key="${encodeURIComponent(cardName)}">
@@ -5271,6 +5793,13 @@ function updateInventoryStats(allNames) {
 }
 
 function resetInventory() {
+    if (Object.keys(cardInventory).length > 0) {
+        const shouldExport = confirm("Save a backup of your current inventory (CSV download) before resetting?");
+        if (shouldExport) {
+            exportInventory();
+        }
+    }
+
     const shouldReset = confirm("Clear all saved card levels and owned counts? This cannot be undone.");
 
     if (!shouldReset) {
@@ -5288,7 +5817,8 @@ function closeAllPopovers(exceptId) {
     const idMap = {
         filterPopover: "filterToggleBtn",
         sortPopover: "sortToggleBtn",
-        groupByPopover: "groupByToggleBtn"
+        groupByPopover: "groupByToggleBtn",
+        profilePopover: "profileSwitcherBtn"
     };
 
     Object.keys(idMap).forEach(id => {
@@ -5486,6 +6016,10 @@ function loadCardFromInventory() {
     updateResourceLabels();
     document.getElementById("currentLevel").value = entry.level;
     document.getElementById("ownedCards").value = entry.owned;
+    document.getElementById("tradeTokens").value = entry.tradeTokens || "";
+    document.getElementById("wildCards").value = entry.wildCards || "";
+    document.getElementById("normalCrystals").value = entry.normalCrystals || "";
+    document.getElementById("refinedCrystals").value = entry.refinedCrystals || "";
     autoFillDesiredLevel();
 
     trackEvent("inventory_loaded_into_calculator", {
@@ -5501,7 +6035,12 @@ function saveScenarioToInventory(scenarioId) {
         return;
     }
 
-    setInventoryEntry(scenario.cardName, scenario.current, scenario.ownedCards);
+    setInventoryEntry(scenario.cardName, scenario.current, scenario.ownedCards, {
+        tradeTokens: scenario.tradeTokens,
+        wildCards: scenario.wildCards,
+        normalCrystals: scenario.normalCrystals,
+        refinedCrystals: scenario.refinedCrystals
+    });
     updateLoadInventoryButtonState();
     updateInventoryTabCount();
     trackEvent("calculation_saved_to_inventory", {
@@ -5520,7 +6059,12 @@ function saveCurrentCardToInventory() {
         return;
     }
 
-    setInventoryEntry(cardName, level, owned);
+    setInventoryEntry(cardName, level, owned, {
+        tradeTokens: document.getElementById("tradeTokens").value,
+        wildCards: document.getElementById("wildCards").value,
+        normalCrystals: document.getElementById("normalCrystals").value,
+        refinedCrystals: document.getElementById("refinedCrystals").value
+    });
     updateLoadInventoryButtonState();
     updateInventoryTabCount();
     trackEvent("calculation_saved_to_inventory", {
@@ -5528,6 +6072,33 @@ function saveCurrentCardToInventory() {
         rarity: cardRarities[cardName]
     });
     showToast(`Saved ${cardName} — Lv ${level}, ${owned} owned — to inventory.`);
+}
+
+function sendScenarioToCalculator(scenarioId) {
+    const scenario = calculationHistory.find(item => item.scenarioId === scenarioId);
+
+    if (!scenario || !cardRarities[scenario.cardName]) {
+        return;
+    }
+
+    document.getElementById("cardName").value = scenario.cardName;
+    document.getElementById("category").value = scenario.category;
+    updateResourceLabels();
+    document.getElementById("currentLevel").value = scenario.current;
+    document.getElementById("desiredLevel").value = scenario.desired;
+    document.getElementById("ownedCards").value = scenario.ownedCards || "";
+    document.getElementById("tradeTokens").value = scenario.tradeTokens || "";
+    document.getElementById("wildCards").value = scenario.wildCards || "";
+    document.getElementById("normalCrystals").value = scenario.normalCrystals || "";
+    document.getElementById("refinedCrystals").value = scenario.refinedCrystals || "";
+    updateLoadInventoryButtonState();
+
+    trackEvent("scenario_sent_to_calculator", {
+        rarity: scenario.category
+    });
+    switchView("calculator");
+    showToast(`Loaded ${scenario.cardName} back into the calculator.`);
+    document.getElementById("desiredLevel").focus();
 }
 
 function sendCardToCalculator(cardName) {
@@ -5542,6 +6113,10 @@ function sendCardToCalculator(cardName) {
     updateResourceLabels();
     document.getElementById("currentLevel").value = entry.level;
     document.getElementById("ownedCards").value = entry.owned;
+    document.getElementById("tradeTokens").value = entry.tradeTokens || "";
+    document.getElementById("wildCards").value = entry.wildCards || "";
+    document.getElementById("normalCrystals").value = entry.normalCrystals || "";
+    document.getElementById("refinedCrystals").value = entry.refinedCrystals || "";
     autoFillDesiredLevel();
     updateLoadInventoryButtonState();
 
@@ -5554,10 +6129,10 @@ function sendCardToCalculator(cardName) {
 
 /* ---------- Inventory import / export (CSV) ---------- */
 function downloadInventoryTemplate() {
-    const headers = ["Card", "Rarity", "Card Type", "Level", "Owned"];
+    const headers = ["Card", "Rarity", "Card Type", "Level", "Owned", "Trade Tokens", "Wild Cards", "Normal Crystals", "Refined Crystals"];
     const rows = Object.keys(cardRarities)
         .sort((a, b) => a.localeCompare(b))
-        .map(name => [name, cardRarities[name], cardTypes[name] || "Spell", "", ""]);
+        .map(name => [name, cardRarities[name], cardTypes[name] || "Spell", "", "", "", "", "", ""]);
 
     const csvContent = [headers, ...rows]
         .map(row => row.map(escapeCSV).join(","))
@@ -5587,7 +6162,7 @@ function exportInventory() {
         return;
     }
 
-    const headers = ["Card", "Rarity", "Card Type", "Level", "Owned"];
+    const headers = ["Card", "Rarity", "Card Type", "Level", "Owned", "Trade Tokens", "Wild Cards", "Normal Crystals", "Refined Crystals"];
 
     const rows = trackedNames
         .filter(name => cardRarities[name])
@@ -5596,7 +6171,11 @@ function exportInventory() {
             cardRarities[name],
             cardTypes[name] || "Spell",
             cardInventory[name].level,
-            cardInventory[name].owned
+            cardInventory[name].owned,
+            cardInventory[name].tradeTokens || 0,
+            cardInventory[name].wildCards || 0,
+            cardInventory[name].normalCrystals || 0,
+            cardInventory[name].refinedCrystals || 0
         ]);
 
     const csvContent = [headers, ...rows]
@@ -5647,6 +6226,10 @@ function importInventoryFromFile(event) {
             const cardIndex = headers.indexOf("Card");
             const levelIndex = headers.indexOf("Level");
             const ownedIndex = headers.indexOf("Owned");
+            const tradeTokensIndex = headers.indexOf("Trade Tokens");
+            const wildCardsIndex = headers.indexOf("Wild Cards");
+            const normalCrystalsIndex = headers.indexOf("Normal Crystals");
+            const refinedCrystalsIndex = headers.indexOf("Refined Crystals");
 
             let importedCount = 0;
 
@@ -5681,7 +6264,21 @@ function importInventoryFromFile(event) {
                     ? 0
                     : parsedOwned;
 
-                setInventoryEntry(cardName, level, owned);
+                // Columns that are missing from the file (older exports) or left
+                // blank leave any previously saved value for that card alone,
+                // rather than resetting it to zero.
+                function readOptionalColumn(columnIndex) {
+                    if (columnIndex === -1) return undefined;
+                    const raw = String(row[columnIndex] ?? "").trim();
+                    return raw === "" ? undefined : raw;
+                }
+
+                setInventoryEntry(cardName, level, owned, {
+                    tradeTokens: readOptionalColumn(tradeTokensIndex),
+                    wildCards: readOptionalColumn(wildCardsIndex),
+                    normalCrystals: readOptionalColumn(normalCrystalsIndex),
+                    refinedCrystals: readOptionalColumn(refinedCrystalsIndex)
+                });
                 importedCount++;
             }
 
@@ -5701,7 +6298,60 @@ function importInventoryFromFile(event) {
     reader.readAsText(file);
 }
 
+/* ---------- Mobile calculator/summary swipe nav ---------- */
+function scrollCalcPanelIntoView(targetId, btnEl) {
+    const target = document.getElementById(targetId);
+    const grid = document.getElementById("calcGrid");
+
+    if (!target || !grid) {
+        return;
+    }
+
+    grid.scrollTo({
+        left: target.offsetLeft - grid.offsetLeft,
+        behavior: "smooth"
+    });
+
+    document.querySelectorAll(".calc-mobile-nav-btn").forEach(btn => btn.classList.remove("is-active"));
+    if (btnEl) btnEl.classList.add("is-active");
+}
+
+(function setupCalcMobileNavSync() {
+    const grid = document.getElementById("calcGrid");
+    const calculatorPanel = document.getElementById("calculatorPanel");
+    const summaryPanel = document.getElementById("summaryPanel");
+
+    if (!grid || !calculatorPanel || !summaryPanel || !("IntersectionObserver" in window)) {
+        return;
+    }
+
+    const navButtons = {
+        calculatorPanel: document.querySelector('.calc-mobile-nav-btn[data-target="calculatorPanel"]'),
+        summaryPanel: document.querySelector('.calc-mobile-nav-btn[data-target="summaryPanel"]')
+    };
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting || entry.intersectionRatio < 0.6) {
+                return;
+            }
+
+            const activeBtn = navButtons[entry.target.id];
+            if (!activeBtn) {
+                return;
+            }
+
+            Object.values(navButtons).forEach(btn => btn && btn.classList.remove("is-active"));
+            activeBtn.classList.add("is-active");
+        });
+    }, { root: grid, threshold: [0.6] });
+
+    observer.observe(calculatorPanel);
+    observer.observe(summaryPanel);
+})();
+
 /* ---------- Init ---------- */
+renderProfileSwitcher();
 updateInventoryTabCount();
 updateLoadInventoryButtonState();
 
