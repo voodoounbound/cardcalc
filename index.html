@@ -318,6 +318,10 @@ a { color: var(--gold); }
 
 .calc-mobile-nav-btn {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     appearance: none;
     border: 1px solid var(--hairline-soft);
     background: var(--panel-raised);
@@ -328,6 +332,13 @@ a { color: var(--gold); }
     padding: 9px 10px;
     border-radius: var(--radius-md);
     cursor: pointer;
+}
+
+.calc-mobile-nav-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    opacity: .85;
 }
 
 .calc-mobile-nav-btn.is-active {
@@ -696,6 +707,27 @@ input:disabled {
     border: 1px solid rgba(192, 71, 90, 0.35);
 }
 .btn-danger-ghost:hover { background: rgba(192, 71, 90, 0.1); }
+
+.btn-fill {
+    background: rgba(155, 107, 192, 0.16);
+    color: var(--ink);
+    border: 1px solid rgba(155, 107, 192, 0.4);
+}
+.btn-fill:hover {
+    background: rgba(155, 107, 192, 0.26);
+    border-color: rgba(155, 107, 192, 0.55);
+    color: var(--ink);
+}
+
+.btn-danger-fill {
+    background: rgba(192, 71, 90, 0.16);
+    color: var(--danger);
+    border: 1px solid rgba(192, 71, 90, 0.4);
+}
+.btn-danger-fill:hover {
+    background: rgba(192, 71, 90, 0.26);
+    border-color: rgba(192, 71, 90, 0.6);
+}
 
 .btn-block { width: 100%; }
 .btn-sm { padding: 7px 12px; font-size: 0.78rem; }
@@ -1514,6 +1546,95 @@ input:disabled {
     font-weight: 700;
 }
 
+.level-range-filter {
+    padding: 2px 8px 6px;
+}
+
+.level-range-values {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold-bright);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.level-range-slider {
+    position: relative;
+    height: 18px;
+}
+
+.level-range-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 4px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    background: var(--hairline-soft);
+    pointer-events: none;
+}
+
+.level-range-fill {
+    position: absolute;
+    top: 50%;
+    height: 4px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+    pointer-events: none;
+}
+
+.level-range-slider input[type="range"] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 18px;
+    margin: 0;
+    background: transparent;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.level-range-slider input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 18px;
+    background: transparent;
+}
+
+.level-range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: auto;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--gold-bright);
+    border: 2px solid var(--panel-raised);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.level-range-slider input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: transparent;
+}
+
+.level-range-slider input[type="range"]::-moz-range-thumb {
+    pointer-events: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gold-bright);
+    border: 2px solid var(--panel-raised);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
 
 .inv-toolbar-actions {
     display: flex;
@@ -2128,10 +2249,12 @@ input:focus::selection, textarea:focus::selection { background: rgba(155,107,192
 
         <div class="calc-mobile-nav" id="calcMobileNav">
             <button type="button" class="calc-mobile-nav-btn is-active" data-target="calculatorPanel" onclick="scrollCalcPanelIntoView('calculatorPanel', this)">
-                🧮 Calculator
+                <svg class="calc-mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01"/></svg>
+                Calculator
             </button>
             <button type="button" class="calc-mobile-nav-btn" data-target="summaryPanel" onclick="scrollCalcPanelIntoView('summaryPanel', this)">
-                📋 Summary
+                <svg class="calc-mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M8 11h8M8 15h5"/></svg>
+                Summary
             </button>
         </div>
 
@@ -2468,7 +2591,7 @@ input:focus::selection, textarea:focus::selection { background: rgba(155,107,192
                     </div>
 
                     <div class="popover-wrap">
-                        <button type="button" class="btn btn-ghost btn-icon" id="filterToggleBtn" onclick="toggleFilterPopover(event)" aria-expanded="false" title="Filter">
+                        <button type="button" class="btn btn-fill btn-icon" id="filterToggleBtn" onclick="toggleFilterPopover(event)" aria-expanded="false" title="Filter">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="4" y1="6" x2="20" y2="6"></line>
                                 <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"></circle>
@@ -2503,9 +2626,22 @@ input:focus::selection, textarea:focus::selection { background: rgba(155,107,192
                             <div class="popover-section-label">Status</div>
                             <div class="popover-options" id="statusOptions">
                                 <button type="button" class="popover-option" data-status="all">All cards</button>
-                                <button type="button" class="popover-option" data-status="tracked">Tracked only</button>
+                                <button type="button" class="popover-option" data-status="tracked" id="statusTrackedBtn">Tracked only</button>
                                 <button type="button" class="popover-option" data-status="ready">Ready to upgrade</button>
                                 <button type="button" class="popover-option" data-status="selected">Selected only</button>
+                            </div>
+
+                            <div class="popover-section-label">Level range</div>
+                            <div class="level-range-filter">
+                                <div class="level-range-values">
+                                    <span id="levelRangeMinLabel">1</span> – <span id="levelRangeMaxLabel">18</span>
+                                </div>
+                                <div class="level-range-slider">
+                                    <div class="level-range-track"></div>
+                                    <div class="level-range-fill" id="levelRangeFill"></div>
+                                    <input type="range" id="levelRangeMin" min="1" max="18" step="1" value="1" aria-label="Minimum level">
+                                    <input type="range" id="levelRangeMax" min="1" max="18" step="1" value="18" aria-label="Maximum level">
+                                </div>
                             </div>
 
                             <button type="button" class="btn btn-ghost btn-sm btn-block" style="margin-top:8px;" onclick="clearInventoryFilters()">Clear filters</button>
@@ -2517,7 +2653,7 @@ input:focus::selection, textarea:focus::selection { background: rgba(155,107,192
                     </div>
 
                     <div class="popover-wrap">
-                        <button type="button" class="btn btn-ghost btn-icon" id="sortToggleBtn" onclick="toggleSortPopover(event)" aria-expanded="false" title="Sort">
+                        <button type="button" class="btn btn-fill btn-icon" id="sortToggleBtn" onclick="toggleSortPopover(event)" aria-expanded="false" title="Sort">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 4v15"></path>
                                 <path d="M3 16l3 3 3-3"></path>
@@ -2551,7 +2687,7 @@ input:focus::selection, textarea:focus::selection { background: rgba(155,107,192
                     </div>
 
                     <div class="popover-wrap" id="groupByDropdown">
-                        <button type="button" class="btn btn-ghost btn-icon" id="groupByToggleBtn" onclick="toggleGroupByPopover(event)" aria-haspopup="true" aria-expanded="false" title="Group by">
+                        <button type="button" class="btn btn-fill btn-icon" id="groupByToggleBtn" onclick="toggleGroupByPopover(event)" aria-haspopup="true" aria-expanded="false" title="Group by">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 4v6a1 1 0 0 0 1 1h2"></path>
                                 <line x1="9" y1="6" x2="20" y2="6"></line>
@@ -2577,14 +2713,14 @@ input:focus::selection, textarea:focus::selection { background: rgba(155,107,192
                     <div class="toolbar-spacer"></div>
 
                     <div class="inv-toolbar-actions">
-                        <button class="btn btn-ghost btn-sm" onclick="downloadInventoryTemplate()" title="Download a blank inventory CSV">Template</button>
-                        <button type="button" class="btn btn-ghost btn-icon btn-icon-sm" onclick="exportInventory()" title="Export CSV" aria-label="Export CSV">
+                        <button class="btn btn-fill btn-sm" onclick="downloadInventoryTemplate()" title="Download a blank inventory CSV">Template</button>
+                        <button type="button" class="btn btn-fill btn-icon btn-icon-sm" onclick="exportInventory()" title="Export CSV" aria-label="Export CSV">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
                         </button>
-                        <button type="button" class="btn btn-ghost btn-icon btn-icon-sm" onclick="triggerImportInventory()" title="Import CSV" aria-label="Import CSV">
+                        <button type="button" class="btn btn-fill btn-icon btn-icon-sm" onclick="triggerImportInventory()" title="Import CSV" aria-label="Import CSV">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 4h16"/></svg>
                         </button>
-                        <button type="button" class="btn btn-danger-ghost btn-icon btn-icon-sm" onclick="resetInventory()" title="Reset inventory" aria-label="Reset inventory">
+                        <button type="button" class="btn btn-danger-fill btn-icon btn-icon-sm" onclick="resetInventory()" title="Reset inventory" aria-label="Reset inventory">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
                         </button>
                     </div>
@@ -4693,7 +4829,9 @@ const RESOURCE_STORAGE_KEY = "voodooUnboundResourcesV1";
 const inventoryFilterState = {
     rarities: new Set(),
     cardTypes: new Set(),
-    statuses: new Set()
+    statuses: new Set(),
+    levelMin: 1,
+    levelMax: 18
 };
 
 let cardInventory = loadInventoryFromStorage();
@@ -5571,8 +5709,16 @@ function renderInventory() {
     if (statusFilters.size > 0) {
         rows = rows.filter(row =>
             (statusFilters.has("tracked") && row.tracked) ||
+            (statusFilters.has("untracked") && !row.tracked) ||
             (statusFilters.has("ready") && row.isReady) ||
             (statusFilters.has("selected") && selectedCards.has(row.cardName))
+        );
+    }
+
+    if (inventoryFilterState.levelMin > 1 || inventoryFilterState.levelMax < 18) {
+        rows = rows.filter(row =>
+            row.entry.level >= inventoryFilterState.levelMin &&
+            row.entry.level <= inventoryFilterState.levelMax
         );
     }
 
@@ -5916,6 +6062,26 @@ function setInventoryStatusFilter(value) {
     toggleFilterValue("statuses", value);
 }
 
+/* The Tracked filter cycles through three states on repeated clicks of the
+   same button: no filter -> tracked only -> untracked only -> no filter.
+   This keeps "not tracked" one click away without adding a second button. */
+function toggleTrackedFilter() {
+    const statuses = inventoryFilterState.statuses;
+
+    if (statuses.has("tracked")) {
+        statuses.delete("tracked");
+        statuses.add("untracked");
+    } else if (statuses.has("untracked")) {
+        statuses.delete("untracked");
+    } else {
+        statuses.add("tracked");
+    }
+
+    updatePopoverActiveStates();
+    updateFilterBadge();
+    renderInventory();
+}
+
 function setInventorySort(value) {
     const sortSelect = document.getElementById("invSort");
 
@@ -5935,6 +6101,11 @@ function clearInventoryFilters() {
     inventoryFilterState.rarities.clear();
     inventoryFilterState.cardTypes.clear();
     inventoryFilterState.statuses.clear();
+    inventoryFilterState.levelMin = 1;
+    inventoryFilterState.levelMax = 18;
+    document.getElementById("levelRangeMin").value = 1;
+    document.getElementById("levelRangeMax").value = 18;
+    updateLevelRangeDisplay();
     updatePopoverActiveStates();
     updateFilterBadge();
     renderInventory();
@@ -5949,12 +6120,60 @@ function clearInventorySort() {
 
 function updateFilterBadge() {
     const badge = document.getElementById("filterBadge");
+    const isLevelRangeActive = inventoryFilterState.levelMin > 1 || inventoryFilterState.levelMax < 18;
     const activeCount = inventoryFilterState.rarities.size
         + inventoryFilterState.cardTypes.size
-        + inventoryFilterState.statuses.size;
+        + inventoryFilterState.statuses.size
+        + (isLevelRangeActive ? 1 : 0);
 
     badge.hidden = activeCount === 0;
     badge.textContent = activeCount > 0 ? String(activeCount) : "";
+}
+
+/* ---------- Level range filter (dual-handle slider) ---------- */
+function handleLevelRangeInput(event) {
+    const minInput = document.getElementById("levelRangeMin");
+    const maxInput = document.getElementById("levelRangeMax");
+
+    let min = Number(minInput.value);
+    let max = Number(maxInput.value);
+
+    // Keep the two handles from crossing — whichever thumb the user is
+    // dragging pushes the other one along with it instead of passing through.
+    if (min > max) {
+        if (event.target === minInput) {
+            max = min;
+            maxInput.value = String(max);
+        } else {
+            min = max;
+            minInput.value = String(min);
+        }
+    }
+
+    inventoryFilterState.levelMin = min;
+    inventoryFilterState.levelMax = max;
+
+    updateLevelRangeDisplay();
+    updateFilterBadge();
+    renderInventory();
+}
+
+function updateLevelRangeDisplay() {
+    const min = inventoryFilterState.levelMin;
+    const max = inventoryFilterState.levelMax;
+
+    const minLabel = document.getElementById("levelRangeMinLabel");
+    const maxLabel = document.getElementById("levelRangeMaxLabel");
+    if (minLabel) minLabel.textContent = min;
+    if (maxLabel) maxLabel.textContent = max;
+
+    const fill = document.getElementById("levelRangeFill");
+    if (fill) {
+        const startPct = ((min - 1) / 17) * 100;
+        const endPct = ((max - 1) / 17) * 100;
+        fill.style.left = startPct + "%";
+        fill.style.width = Math.max(0, endPct - startPct) + "%";
+    }
 }
 
 function updatePopoverActiveStates() {
@@ -5975,11 +6194,23 @@ function updatePopoverActiveStates() {
     });
 
     document.querySelectorAll("#statusOptions .popover-option").forEach(btn => {
+        if (btn.id === "statusTrackedBtn") {
+            return;
+        }
+
         const value = btn.dataset.status;
         btn.classList.toggle("is-active",
             value === "all" ? inventoryFilterState.statuses.size === 0 : inventoryFilterState.statuses.has(value)
         );
     });
+
+    const trackedBtn = document.getElementById("statusTrackedBtn");
+    if (trackedBtn) {
+        const isUntracked = inventoryFilterState.statuses.has("untracked");
+        const isTracked = inventoryFilterState.statuses.has("tracked");
+        trackedBtn.classList.toggle("is-active", isTracked || isUntracked);
+        trackedBtn.textContent = isUntracked ? "Not tracked" : "Tracked only";
+    }
 
     document.querySelectorAll("#sortOptions .popover-option").forEach(btn => {
         const isActive = btn.dataset.sort === sortValue;
@@ -6387,7 +6618,11 @@ document.querySelectorAll("#cardTypeOptions .popover-option").forEach(btn => {
 });
 
 document.querySelectorAll("#statusOptions .popover-option").forEach(btn => {
-    btn.addEventListener("click", () => setInventoryStatusFilter(btn.dataset.status));
+    if (btn.id === "statusTrackedBtn") {
+        btn.addEventListener("click", toggleTrackedFilter);
+    } else {
+        btn.addEventListener("click", () => setInventoryStatusFilter(btn.dataset.status));
+    }
 });
 
 document.querySelectorAll("#sortOptions .popover-option").forEach(btn => {
@@ -6397,6 +6632,10 @@ document.querySelectorAll("#sortOptions .popover-option").forEach(btn => {
 document.querySelectorAll("#groupByOptions .popover-option").forEach(btn => {
     btn.addEventListener("click", () => setInventoryGroupBy(btn.dataset.group));
 });
+
+document.getElementById("levelRangeMin").addEventListener("input", handleLevelRangeInput);
+document.getElementById("levelRangeMax").addEventListener("input", handleLevelRangeInput);
+updateLevelRangeDisplay();
 
 updateFilterBadge();
 updatePopoverActiveStates();
